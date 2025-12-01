@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Montserrat } from "next/font/google"; // 引入谷歌字体
+import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
+import ContactButton from "@/components/ContactButton"; // <--- 引入刚才写的组件
 
-// 1. 配置标题字体：优雅、轻奢、衬线体
 const playfair = Playfair_Display({ 
   subsets: ["latin"],
   variable: "--font-heading",
 });
 
-// 2. 配置正文字体：清晰、现代、无衬线
 const montserrat = Montserrat({ 
   subsets: ["latin"],
   variable: "--font-body",
@@ -26,9 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* 把字体变量注入到 body 中 */}
       <body className={`${playfair.variable} ${montserrat.variable} font-sans antialiased`}>
         {children}
+        
+        {/* 把客服按钮放在这里，它就会出现在所有页面上 */}
+        <ContactButton /> 
+        
       </body>
     </html>
   );
