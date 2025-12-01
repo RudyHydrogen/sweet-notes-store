@@ -3,7 +3,6 @@
 import Navbar from "@/components/Navbar";
 import { products } from "@/lib/products";
 import { useCartStore } from "@/lib/store"; // 引入大脑
-import { toast } from "sonner"; // 稍后我们会装这个提示框，先预留着位置
 import { ShoppingBag } from "lucide-react"; // 确保引入图标
 
 export default function Home() {
