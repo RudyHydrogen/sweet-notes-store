@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* --- 这里的颜色定义不变 --- */
+    
+    /* 背景色：极浅的暖杏白 */
+    --background: 30 20% 98%; 
+    /* 文字色：深岩石灰 */
+    --foreground: 240 4% 16%; 
+
+    /* 主色调：干燥玫瑰粉 */
+    --primary: 350 30% 60%; 
+    --primary-foreground: 0 0% 100%;
+
+    /* 边框色：浅灰 */
+    --border: 240 6% 90%;
+  }
+}
+
+@layer base {
+  /* --- 这里是修改的地方 --- */
+  body {
+    /* 之前报错是因为用了 @apply bg-background */
+    /* 我们改成直接引用变量，这样电脑一定听得懂 */
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+  }
+}
