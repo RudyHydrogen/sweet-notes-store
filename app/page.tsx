@@ -5,6 +5,7 @@ import { products } from "@/lib/products";
 import { useCartStore } from "@/lib/store";
 import Link from "next/link"; // <--- 引入 Link
 
+
 export default function Home() {
   const addToCart = useCartStore((state) => state.addToCart);
 

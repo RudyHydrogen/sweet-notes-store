@@ -15,8 +15,15 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Sweet Notes Studio",
-  description: "Premium stationery for your creativity.",
+  title: {
+    template: '%s | Sweet Notes Studio', // 这里的 %s 会被子页面的标题替换
+    default: 'Sweet Notes Studio - Premium Stationery', // 默认标题
+  },
+  description: "Handcrafted notebooks, journals, and stationery for your biggest dreams. Free shipping on orders over $50.",
+  // 这是为了让搜索引擎知道你的图标在哪里
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
