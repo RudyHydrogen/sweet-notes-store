@@ -1,12 +1,11 @@
-"use client"; // <--- 重点！因为要交互了，所以必须加这一行，变成客户端组件
+"use client";
 
 import Navbar from "@/components/Navbar";
 import { products } from "@/lib/products";
-import { useCartStore } from "@/lib/store"; // 引入大脑
-import { ShoppingBag } from "lucide-react"; // 确保引入图标
+import { useCartStore } from "@/lib/store";
+import Link from "next/link"; // <--- 引入 Link
 
 export default function Home() {
-  // 从大脑里拿出“addToCart”这个功能
   const addToCart = useCartStore((state) => state.addToCart);
 
   return (
@@ -41,36 +40,45 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product) => (
-            <div key={product.id} className="group cursor-pointer">
-              <div className="relative w-full aspect-[3/4] overflow-hidden rounded-sm bg-stone-100 mb-4">
-                {product.tag && (
-                  <div className="absolute top-2 left-2 z-10 bg-white/90 backdrop-blur px-2 py-1 text-[10px] uppercase tracking-widest font-bold text-stone-800">
-                    {product.tag}
+            <div key={product.id} className="group">
+              
+              {/* --- 这里的 Link 是关键！包裹住图片 --- */}
+              <Link href={`/product/${product.id}`}>
+                <div className="relative w-full aspect-[3/4] overflow-hidden rounded-sm bg-stone-100 mb-4 cursor-pointer">
+                  {product.tag && (
+                    <div className="absolute top-2 left-2 z-10 bg-white/90 backdrop-blur px-2 py-1 text-[10px] uppercase tracking-widest font-bold text-stone-800">
+                      {product.tag}
+                    </div>
+                  )}
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                  />
+                  
+                  {/* 把快速加购按钮放在这里，用 e.preventDefault 阻止跳转，只加购 */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-end justify-center pb-6 opacity-0 group-hover:opacity-100">
+                    <button 
+                      onClick={(e) => {
+                        e.preventDefault(); // 阻止跳转到详情页
+                        addToCart(product);
+                        // alert(`Added ${product.name} to cart!`); // 暂时注释掉弹窗，太烦了
+                      }}
+                      className="bg-white text-stone-800 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-red-400 hover:text-white transition-colors shadow-lg translate-y-4 group-hover:translate-y-0 duration-300"
+                    >
+                      Quick Add
+                    </button>
                   </div>
-                )}
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-end justify-center pb-6 opacity-0 group-hover:opacity-100">
-                  <button 
-                    // --- 这里的 onClick 是关键 ---
-                    onClick={() => {
-                      addToCart(product);
-                      alert(`Added ${product.name} to cart!`); // 暂时用个弹窗提示
-                    }}
-                    className="bg-white text-stone-800 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-red-400 hover:text-white transition-colors shadow-lg translate-y-4 group-hover:translate-y-0 duration-300"
-                  >
-                    Add to Cart
-                  </button>
                 </div>
-              </div>
+              </Link>
+
               <div className="text-center space-y-1">
                 <p className="text-xs text-stone-400 uppercase tracking-widest">{product.category}</p>
-                <h3 className="text-lg font-serif text-stone-800 group-hover:text-red-400 transition-colors">
-                  {product.name}
-                </h3>
+                <Link href={`/product/${product.id}`}>
+                  <h3 className="text-lg font-serif text-stone-800 group-hover:text-red-400 transition-colors cursor-pointer">
+                    {product.name}
+                  </h3>
+                </Link>
                 <p className="text-stone-900 font-medium">${product.price.toFixed(2)}</p>
               </div>
             </div>
