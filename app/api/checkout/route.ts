@@ -19,7 +19,8 @@ export async function POST(request: Request) {
         currency: "usd",
         product_data: {
           name: item.name,
-          images: [item.image],
+          // 👇【关键修改】在这里拼接域名，解决 "Not a valid URL" 报错
+          images: [`${process.env.NEXT_PUBLIC_BASE_URL}${item.image}`],
         },
         unit_amount: Math.round(item.price * 100),
       },
