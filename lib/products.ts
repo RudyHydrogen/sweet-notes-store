@@ -35,7 +35,7 @@ export const products = [
     name: "Rose Gold Minimalist",
     price: 30.00,
     category: "A5 • 160gsm",
-    image: "/images/product4.jpg",
+    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc",
     tag: "Limited",
     description: "Less is more. A stunning rose gold emblem on a pristine white cover. Designed for the minimalist who loves clean lines and luxury textures.",
     details: ["160gsm bright white paper", "5.75″ x 8.25″ (A5)", "Dot Grid", "Vegan leather cover"]
